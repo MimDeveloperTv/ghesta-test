@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use \App\Actions\ChanceAction as Chances;
 
 return new class extends Migration
 {
@@ -14,7 +15,7 @@ return new class extends Migration
         Schema::create('chances', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->unsignedBigInteger('user_id');
-            $table->string('chance', 1)->unique();
+            $table->enum('chance',Chances::VALUES);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

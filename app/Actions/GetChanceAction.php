@@ -19,7 +19,8 @@ class GetChanceAction
     public function handle(): Model
     {
         try {
-            return Chance::query()->firstOrCreate(['user_id' => auth()->id()]);
+            $chance = (string) ChanceAction::run();
+            return Chance::query()->firstOrCreate(['user_id' => auth()->id()],['chance' => $chance]);
         } catch (\Exception $exception) {
             throw new \Exception('Operation Has Error', 500);
         }
