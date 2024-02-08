@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\ChanceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,8 @@ Route::group(['prefix' => 'auth', 'as' => 'auth.'], function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
     Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+});
+
+Route::group(['prefix' => 'chance', 'as' => 'chance.', 'middleware' => 'auth:sanctum'], function () {
+    Route::post('take', [ChanceController::class, 'take']);
 });
